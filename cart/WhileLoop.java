@@ -9,7 +9,7 @@ public class WhileLoop {
         while (input.length() > 0){
             input = cons.readLine("Please enter a text. Blank to end ");
             if(input.length() > 0){
-                System.out.printf(" --- %s\n", input.toLowerCase());
+                System.out.printf(" %s\n", input.toLowerCase());
             }
         }
         System.out.println("Sayonara!");
