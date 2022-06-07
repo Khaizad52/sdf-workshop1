@@ -5,15 +5,12 @@ import java.io.Console;
 
 public class ShoppingCart {
     public static void main(String[] args){
-        System.out.println("Shopping cart");
+        System.out.println("This is your shopping cart");
         List<String> cart = new LinkedList<>();
         Console cons = System.console();
         String input;
         int delIndex;
         boolean stop = false;
-        cart.add("apple");
-        cart.add("orange");
-        cart.add("pear");
 
         //main loop
         while(!stop){
@@ -22,19 +19,23 @@ public class ShoppingCart {
             String[] terms = input.split(" ");
             String cmd = terms[0];
 
-            switch(cmd){
+            switch(cmd.toLowerCase()){
                 case "add":
-                    for(int i=1; i < terms.length; i++){
+                    String fruitsStr = terms[1];
+                    String fruitsReplaced = fruitsStr.replace(",", " ");
+                    String[] fruits = fruitsReplaced.split(" ");
+
+                    for(int i=0; i < fruits.length; i++){
                         boolean found = false;
                         for(int j=0; j <cart.size(); j++){
-                            if(terms[i].equals(cart.get(j))){
+                            if(fruits[i].equals(cart.get(j))){
                                 found = true;
                                 break;
                             }
                         }
                         if(!found){
-                            cart.add(terms[i]);
-                            System.out.printf("Added %s to cart", terms[i]);
+                            cart.add(fruits[i]);
+                            System.out.printf("Added %s to cart\n", fruits[i]);
                         }
                     }
                     break;
@@ -47,12 +48,29 @@ public class ShoppingCart {
                         System.out.println("Your cart is emoty!");
                     }
                     break;
-            
+                    case "del":
+                        if(terms.length < 2){
+                            System.out.println("Please provide an index in order to delete");
+                        }else{
+                            delIndex = Integer.parseInt(terms[1]) -1;
+                            System.out.println(delIndex);
+                            if(delIndex >= 0 && delIndex < cart.size()){
+                                System.out.printf("deleted %s from cart\n", cart.get(delIndex));
+                                cart.remove(delIndex);
+                            }else{
+                                System.out.println("No such item to delete");
+                            }
+                        }
+                        break;
+                    case "end":
+                        stop= true;
+                        break;
+                    default:
             }
 
 
         }
-
+        System.out.println("Thank you for shopping with us");
 
     }
 }
